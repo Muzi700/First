@@ -1,55 +1,58 @@
 package com.example.firstapp;
 
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    //定义类变量
+    TextView out;
+    EditText inp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //查找id：findViewById(R.id....)
+        out = (TextView) findViewById(R.id.showText);
+        inp = (EditText)findViewById(R.id.tv_input);
+        //String str = inp.getText().toString(); //Editable->String
+
+        //android打印不用System.out.println(),用log
+        //Log.i("main","input=" + str);
+
+        Button btn = (Button)findViewById(R.id.btn1);
+
+        //btn.setOnClickListener(this);
+        //事件绑定需要监听器。若使用当前类做监听，则当前类需要实现接口
+
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Log.i("mail","onClick called....");
+                String str = inp.getText().toString();
+
+                out.setText("Hello " + str);
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onClick(View v) {
+        Log.i("click","onClick .....");
+
+        //TextView tv = (TextView) findViewById(R.id.showText);
+        //EditText inp = (EditText)findViewById(R.id.inputText);
+        String str = inp.getText().toString();
+
+        out.setText("Hello " + str);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void btn(View v) {
+        Log.i("click", "onClick .....");
     }
 }
